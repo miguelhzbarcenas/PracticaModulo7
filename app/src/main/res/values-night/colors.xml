@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Vegan Food Palette - Dark Theme -->
+    <color name="vegan_green_primary">#5A9137</color>
+    <color name="vegan_red_accent">#C43F35</color>
+    <color name="vegan_orange_accent">#D58F1E</color>
+    <color name="text_dark">#EAEAEA</color>
+    <color name="background_element_light">#424242</color>
+</resources>

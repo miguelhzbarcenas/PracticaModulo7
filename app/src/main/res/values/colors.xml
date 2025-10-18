@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Vegan Food Palette -->
+    <color name="vegan_green_primary">#6EAF42</color>
+    <color name="vegan_red_accent">#E54D42</color>
+    <color name="vegan_orange_accent">#F5A623</color>
+    <color name="text_dark">#333333</color>
+    <color name="background_element_light">#F5F5F5</color>
+</resources>

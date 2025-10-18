@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PracticaModulo7</string>
+    <string name="nombre_del_alimento">Nombre del Alimento</string>
+    <string name="logotipo_de_la_app">Logotipo de la App</string>
+    <string name="no_hay_conexion">No hay conexión</string>
+    <string name="error_inesperado">Error inesperado</string>
+    <string name="id_recibido">Id recibido: %1$s</string>
+    <string name="calorias_proteinasgr_carbohidratosgr_grasasgr_porcion">Calorías: %1$d\nProteínas: %2$sgr\nCarbohidratos: %3$sgr\nGrasas: %4$sgr\nPorción: %5$s</string>
+</resources>
