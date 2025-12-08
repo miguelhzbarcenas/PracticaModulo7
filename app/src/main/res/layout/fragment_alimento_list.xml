@@ -1,25 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_app"
     tools:context=".ui.fragments.AlimentosListFragment">
 
-    <ProgressBar
-        android:id="@+id/pbLoading"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:indeterminateDrawable="@drawable/loading_anim"
-        android:indeterminateDuration="1500"
-        />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvGames"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/vegan_green_primary"
+            app:menu="@menu/menu_main"
+            app:title="Lista de Alimentos"
+            app:titleTextColor="@color/white" />
 
-</FrameLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ProgressBar
+            android:id="@+id/pbLoading"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:indeterminateDrawable="@drawable/loading_anim"
+            android:indeterminateDuration="1500" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvGames"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

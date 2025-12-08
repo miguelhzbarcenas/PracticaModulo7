@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.example.practicamodulo7.utils.Constants
 import com.bumptech.glide.Glide
@@ -15,6 +16,9 @@ import com.example.practicamodulo7.data.AlimentoRepository
 import com.example.practicamodulo7.databinding.FragmentAlimentoDetailBinding
 import kotlinx.coroutines.launch
 import java.io.IOException
+import com.bumptech.glide.request.RequestOptions
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 
 private const val ALIMENTO_ID = "alimento_id"
 
@@ -38,7 +42,7 @@ class AlimentoDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAlimentoDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -65,14 +69,37 @@ class AlimentoDetailFragment : Fragment() {
 
                     Glide.with(requireActivity())
                         .load(alimentoDetail.imagenUrl)
+                        .apply(RequestOptions().placeholder(R.drawable.loading_anim).error(R.drawable.loading))
                         .into(binding.ivImage)
+
+                    if (!alimentoDetail.videoUrl.isNullOrEmpty()) {
+                        binding.youtubePlayerView.visibility = View.VISIBLE
+                        val videoId = alimentoDetail.videoUrl!!.trim()
+
+                        lifecycle.addObserver(binding.youtubePlayerView)
+
+                        binding.youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+                            override fun onReady(youTubePlayer: YouTubePlayer) {
+
+                                youTubePlayer.cueVideo(videoId, 0f)
+
+                            }
+                        })
+                    } else {
+                        binding.youtubePlayerView.visibility = View.GONE
+                    }
                 }
 
-            } catch (_: IOException) {
-                //Manejamos la excepción
-            } catch (_: Exception) {
-                //Manejamos la excepción
+            } catch (e: IOException) {
+                Log.e("DetalleAlimento", "Error de red: ${e.message}")
+                mostrarError("No hay conexión a internet. Revisa tu red.")
+
+            } catch (e: Exception) {
+                Log.e("DetalleAlimento", "Error desconocido: ${e.message}", e)
+                mostrarError("Ocurrió un error inesperado.")
+
             } finally {
+
                 binding.pbLoading.visibility = View.INVISIBLE
             }
         }
@@ -91,5 +118,9 @@ class AlimentoDetailFragment : Fragment() {
                     putString(ALIMENTO_ID, alimentoId)
                 }
             }
+    }
+
+    private fun mostrarError(mensaje: String) {
+        Toast.makeText(requireContext(), mensaje, Toast.LENGTH_LONG).show()
     }
 }

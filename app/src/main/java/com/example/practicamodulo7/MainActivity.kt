@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.practicamodulo7.ui.fragments.AlimentosListFragment
+import com.example.practicamodulo7.ui.fragments.LoginFragment
 import com.example.practicamodulo7.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -21,10 +21,11 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        supportFragmentManager.beginTransaction().replace(
-            R.id.fcvMain,
-            AlimentosListFragment()
-        ).commit()
-
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction().replace(
+                R.id.fcvMain,
+                LoginFragment()
+            ).commit()
+        }
     }
 }

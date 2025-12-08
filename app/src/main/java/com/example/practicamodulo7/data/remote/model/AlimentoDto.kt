@@ -18,5 +18,7 @@ data class AlimentoDto(
     @SerializedName("porcion")
     var porcion: String? = "N/A",
     @SerializedName("imagen_url")
-    var imagenUrl: String? = ""
+    var imagenUrl: String? = "",
+    @SerializedName("video_url")
+    var videoUrl: String? = ""
 )

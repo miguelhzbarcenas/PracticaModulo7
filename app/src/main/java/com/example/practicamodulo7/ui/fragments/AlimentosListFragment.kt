@@ -15,6 +15,7 @@ import com.example.practicamodulo7.R
 import com.example.practicamodulo7.application.PracticaModulo7app
 import com.example.practicamodulo7.data.AlimentoRepository
 import com.example.practicamodulo7.databinding.FragmentAlimentoListBinding
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 import okio.IOException
 
@@ -25,11 +26,12 @@ class AlimentosListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var repository: AlimentoRepository
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentAlimentoListBinding.inflate(inflater, container, false)
         return binding.root
@@ -38,7 +40,10 @@ class AlimentosListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        auth = FirebaseAuth.getInstance()
         repository = (requireActivity().application as PracticaModulo7app).repository
+
+        setupToolbar()
 
         lifecycleScope.launch {
             try {
@@ -79,6 +84,21 @@ class AlimentosListFragment : Fragment() {
 
         }
 
+    }
+
+    private fun setupToolbar() {
+        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.action_logout -> {
+                    auth.signOut()
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.fcvMain, LoginFragment())
+                        .commit()
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     override fun onDestroy() {
